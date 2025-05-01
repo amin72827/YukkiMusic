@@ -113,7 +113,7 @@ class Telegram:
                     completed_size = convert_bytes(current)
                     speed = convert_bytes(speed)
                     text = _["tg_3"].format(
-                        tbot.mention,
+                        message.client.mention,
                         total_size,
                         completed_size,
                         percentage[:5],
@@ -134,10 +134,10 @@ class Telegram:
             try:
                 with open(fname, "wb") as out:
                     await download_file(
-                        tbot, message.document, out, progress_callback=progress
+                        message.client, message.document, out, progress_callback=progress
                     )
 
-                """await tbot.download_media(
+                """await message.client.download_media(
                     message,
                     file=fname,
                     progress_callback=progress,
@@ -146,7 +146,7 @@ class Telegram:
                 downloader.pop(message.id, None)
             except Exception as e:
                 await mystic.edit(_["tg_2"])
-                await tbot.handle_error(e)
+                await message.client.handle_error(e)
 
         if len(downloader) > 10:
             timers = list(downloader.values())
