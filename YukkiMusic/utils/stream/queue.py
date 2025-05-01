@@ -9,7 +9,6 @@
 #
 
 
-from config import autoclean, chatstats, userstats
 from YukkiMusic.core.track import Track
 from YukkiMusic.misc import db
 
