@@ -108,7 +108,7 @@ def top_ten_stats_markup(_):
 
 @tbot.on_message(flt.command("STATS_COMMAND", True) & ~BANNED_USERS)
 @language
-async def stats_command(event):
+async def stats_command(event, _):
     _ = get_string("en")
     upl = stats_buttons(_, event.sender_id in SUDOERS)
     await event.reply(
@@ -118,7 +118,7 @@ async def stats_command(event):
 
 @tbot.on_message(flt.command("GSTATS_COMMAND", True) & ~BANNED_USERS)
 @language
-async def gstats_command(event):
+async def gstats_command(event, _):
     mystic = await event.reply(_["gstats_1"])
 
     async def get_stats():
@@ -161,7 +161,7 @@ async def gstats_command(event):
 
 @tbot.on(events.CallbackQuery(pattern="GetStatsNow", func=~BANNED_USERS))
 @language
-async def handle_get_stats(event):
+async def handle_get_stats(event, _):
     what = event.pattern_match.group(1).decode()
     upl = back_stats_markup(_)
 
@@ -254,7 +254,7 @@ async def handle_get_stats(event):
 
 @tbot.on(events.CallbackQuery(pattern="TopOverall", func=~BANNED_USERS))
 @language
-async def handle_top_overall(event):
+async def handle_top_overall(event, _):
     what = event.pattern_match.group(1).decode()
 
     if what == "sudo":
@@ -355,7 +355,7 @@ async def handle_top_overall(event):
     )
 )
 @language
-async def handle_stats_buttons(event):
+async def handle_stats_buttons(event, _):
     command = event.pattern_match.group(1).decode()
 
     if command == "TOPMARKUPGET":
