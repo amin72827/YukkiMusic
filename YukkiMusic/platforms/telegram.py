@@ -144,7 +144,7 @@ class Telegram:
                 )"""
                 await mystic.edit(_["tg_4"])
                 downloader.pop(message.id, None)
-            except Exception:
+            except Exceptionas e:
                 await mystic.edit(_["tg_2"])
 
         if len(downloader) > 10:
@@ -168,4 +168,4 @@ class Telegram:
         if not verify:
             return False
         lyrical.pop(mystic.id)
-        return True
+        return fname
