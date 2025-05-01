@@ -13,7 +13,7 @@ import platform
 from sys import version as pyver
 
 import psutil
-from AlinaMusic.utils.decorators.language import language
+from YukkiMusic.utils.decorators.language import language
 from pytgcalls.__version__ import __version__ as pytgver
 from telethon import Button, events
 
@@ -23,6 +23,7 @@ from YukkiMusic import tbot
 from YukkiMusic.core import filters as flt
 from YukkiMusic.core.userbot import assistants
 from YukkiMusic.misc import BANNED_USERS, SUDOERS
+from YukkiMusic.platforms import youtube
 from YukkiMusic.utils.database import (
     get_global_tops,
     get_particulars,
@@ -144,7 +145,7 @@ async def gstats_command(event):
             await mystic.edit(_["gstats_2"])
             return
 
-        track_info = await Platform.youtube.track(videoid, True)
+        track_info = await youtube.track(videoid, True)
         title = track_info[0].title()
         thumbnail = track_info[3]
         final = f"Top played Tracks on {tbot.me.username}\n\n**Title:** {title}\n\nPlayed** {co} **times"
