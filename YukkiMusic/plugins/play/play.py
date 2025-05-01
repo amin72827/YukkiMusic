@@ -72,7 +72,7 @@ async def play_commnd(
                 _["play_6"].format(config.DURATION_LIMIT_MIN, duration_min)
             )
         try:
-            file_path = await telegram.download(_, rmsg):
+            file_path = await telegram.download(_, rmsg, mystic):
         except Exception as e:
             await mystic.edit(e)
             return 
