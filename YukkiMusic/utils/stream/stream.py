@@ -95,7 +95,7 @@ async def stream(
                     await tbot.handle_error(e)
                     raise AssistantErr(_["play_16"])
                 await Yukki.join_call(
-                    chat_id, file_path, video=song.video, image=song.thumb
+                    _, chat_id, file_path, video=song.video, image=song.thumb
                 )
                 await put_queue(
                     chat_id=chat_id,
@@ -158,7 +158,7 @@ async def stream(
             except Exception as e:
                 await tbot.handle_error(e)
                 raise AssistantErr(_["play_16"])
-            await Yukki.join_call(chat_id, file_path, video=video, image=track.thumb)
+            await Yukki.join_call(_, chat_id, file_path, video=video, image=track.thumb)
             await put_queue(
                 chat_id=chat_id,
                 original_chat_id=original_chat_id,
@@ -184,6 +184,7 @@ async def stream(
                 await tbot.handle_error(e)
                 raise AssistantErr(_["str_3"]) from e
             await Yukki.join_call(
+                _, 
                 chat_id,
                 file_path,
                 video=video,
