@@ -41,7 +41,7 @@ async def put_queue(
             db[chat_id].append(put)
     else:
         db[chat_id].append(put)
-    if not track.is_m3u8:
+    """if not track.is_m3u8:
         autoclean.append(
             track.file_path
         )  # Since in queue the track is not downloaded so what to do
@@ -54,4 +54,4 @@ async def put_queue(
         if user_id not in userstats:
             userstats[user_id] = []
         userstats[user_id].append(to_append)
-        return
+        return"""
