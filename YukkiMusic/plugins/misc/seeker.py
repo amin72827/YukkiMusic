@@ -39,7 +39,7 @@ async def timer():
             playing = db.get(chat_id)
             if not playing:
                 continue
-            playing[0]["track"]
+            track = playing[0]["track"]
             if track.is_live or track.is_m3u8:
                 continue
             duration = int(playing[0]["seconds"])
