@@ -104,7 +104,7 @@ async def stream(
                     track=song,
                     forceplay=forceplay,
                 )
-                img = await gen_thumb( track.thumb)
+                img = await gen_thumb(track.thumb)
                 what, button = play_markup(_, chat_id, track)
                 li = (f"https://t.me/{tbot.username}?start=info_{song.vidid}",)
 
