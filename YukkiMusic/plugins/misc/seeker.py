@@ -36,17 +36,23 @@ async def timer():
         for chat_id in active_chats:
             if not await is_music_playing(chat_id):
                 continue
+
             playing = db.get(chat_id)
             if not playing:
                 continue
-            track = playing[0]["track"]
-            if track.is_live or track.is_m3u8:
+
+            track = playing[0].get("track")
+            if not track:
                 continue
-            duration = int(track.duration)
+
+            duration = getattr(track, "duration", 0)
             if duration == 0:
                 continue
-            db[chat_id][0]["played"] += 1
 
+            try:
+                db[chat_id][0]["played"] += 1
+            except Exception:
+                db[chat_id][0]["played"] = 1
 
 async def leave_if_muted():
     await asyncio.sleep(2)
