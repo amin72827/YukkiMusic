@@ -134,7 +134,10 @@ class Telegram:
             try:
                 with open(fname, "wb") as out:
                     await download_file(
-                        message.client, message.document, out, progress_callback=progress
+                        message.client,
+                        message.document,
+                        out,
+                        progress_callback=progress,
                     )
 
                 """await message.client.download_media(
