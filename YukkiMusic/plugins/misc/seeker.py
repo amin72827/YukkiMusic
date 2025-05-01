@@ -54,6 +54,7 @@ async def timer():
             except Exception:
                 db[chat_id][0]["played"] = 1
 
+
 async def leave_if_muted():
     await asyncio.sleep(2)
     for chat_id, details in list(muted.items()):
