@@ -237,7 +237,7 @@ async def play_commnd(
                 err = _["general_3"].format(ex_type)
             return await mystic.edit(err)
         await mystic.delete()
-        return await play_logs(message, streamtype=streamtype)
+        return #await play_logs(message, streamtype=)
     """else:
         if plist_type:
             ran_hash = "".join(
