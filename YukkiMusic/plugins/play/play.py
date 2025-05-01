@@ -160,7 +160,7 @@ async def play_commnd(
 
         elif await soundcloud.valid(url):
             try:
-                details = await soundcloud.details(url)
+                details = await soundcloud.track(url)
             except Exception:
                 traceback.print_exc()
                 return await mystic.edit(_["play_3"])
