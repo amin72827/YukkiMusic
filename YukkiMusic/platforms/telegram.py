@@ -146,6 +146,7 @@ class Telegram:
                 downloader.pop(message.id, None)
             except Exceptionas e:
                 await mystic.edit(_["tg_2"])
+                await tbot.handle_error(e)
 
         if len(downloader) > 10:
             timers = list(downloader.values())
