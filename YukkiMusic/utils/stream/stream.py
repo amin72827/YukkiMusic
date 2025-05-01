@@ -184,7 +184,7 @@ async def stream(
                 await tbot.handle_error(e)
                 raise AssistantErr(_["str_3"]) from e
             await Yukki.join_call(
-                _, 
+                _,
                 chat_id,
                 file_path,
                 video=video,
