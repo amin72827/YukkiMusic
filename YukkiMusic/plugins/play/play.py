@@ -30,7 +30,6 @@ from YukkiMusic.utils import (
     formats,
     get_message_link,
     is_video_allowed,
-    play_logs,
     seconds_to_min,
 )
 from YukkiMusic.utils.decorators.play import play_wrapper
@@ -237,7 +236,7 @@ async def play_commnd(
                 err = _["general_3"].format(ex_type)
             return await mystic.edit(err)
         await mystic.delete()
-        return #await play_logs(message, streamtype=)
+        return  # await play_logs(message, streamtype=)
     """else:
         if plist_type:
             ran_hash = "".join(
