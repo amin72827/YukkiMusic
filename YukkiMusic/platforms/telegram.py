@@ -90,7 +90,7 @@ class Telegram:
         left_time = {}
         speed_counter = {}
         if os.path.exists(fname):
-            return True
+            return fname
 
         async def down_load():
             async def progress(current, total):
