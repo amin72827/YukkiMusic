@@ -71,6 +71,9 @@ async def play_commnd(
                 _["play_6"].format(config.DURATION_LIMIT_MIN, duration_min)
             )
         file_path = await telegram.download(_, rmsg, mystic)
+        if not file_path:
+            return
+
         if file_path:
             message_link = await get_message_link(rmsg)
             file_name = file.name or "Telagram audio file"
@@ -83,8 +86,7 @@ async def play_commnd(
                 video=False,
                 file_path=file_path,
             )
-        else:
-            return
+
     elif video_telegram:
         if not await is_video_allowed(event.chat_id):
             return await mystic.edit(_["play_3"])
@@ -95,7 +97,10 @@ async def play_commnd(
             return await mystic.edit(_["play_8"].format(f"{' | '.join(formats)}"))
         if file.size > config.TG_VIDEO_FILESIZE_LIMIT:
             return await mystic.edit(_["play_9"])
-        if await telegram.download(_, rmsg, mystic, True):
+        file_path = await telegram.download(_, rmsg, mystic, True)
+        if not file_path:
+            return
+        if file_path:
             message_link = await get_message_link(rmsg)
             file_name = file.name or "Telagram video file"
             details = Track(
