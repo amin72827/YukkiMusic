@@ -18,7 +18,6 @@ from telethon.tl import types
 
 from config import lyrical
 from YukkiMusic.core.FastTelethon import download_file
-
 from YukkiMusic.utils.inline import downlod_markup
 
 from ..utils.formatters import convert_bytes, get_readable_time
@@ -134,8 +133,10 @@ class Telegram:
 
             try:
                 with open(fname, "wb") as out:
-                    await download_file(tbot, message.document, out, progress_callback=progress)
-        
+                    await download_file(
+                        tbot, message.document, out, progress_callback=progress
+                    )
+
                 """await tbot.download_media(
                     message,
                     file=fname,
