@@ -215,13 +215,11 @@ async def stream(
         button = close_markup(_)
     else:
         photo = await gen_thumb(track.thumb)
-        caption = (
-            _["stream_1"].format(
-                title[:27],
-                link,
-                duration,
-                user_mention,
-            ),
+        caption = _["stream_1"].format(
+            title[:20],
+            link,
+            duration,
+            user_mention,
         )
         what, button = play_markup(_, chat_id, track)
     run = await tbot.send_message(
