@@ -144,7 +144,7 @@ class Telegram:
                 )"""
                 await mystic.edit(_["tg_4"])
                 downloader.pop(message.id, None)
-            except Exceptionas e:
+            except Exception as e:
                 await mystic.edit(_["tg_2"])
                 await tbot.handle_error(e)
 
