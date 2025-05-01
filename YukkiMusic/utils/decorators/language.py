@@ -35,9 +35,9 @@ def language(func=None, *, no_check=False):
 
             if no_check:
                 return await f(event, language)
-                
+
             is_message = getattr(event, "message", False)
-            
+
             if not await is_maintenance():
                 if event.sender_id not in SUDOERS:
                     if isinstance(chat, User):
