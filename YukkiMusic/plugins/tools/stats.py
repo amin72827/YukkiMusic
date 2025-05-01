@@ -13,7 +13,6 @@ import platform
 from sys import version as pyver
 
 import psutil
-from YukkiMusic.utils.decorators.language import language
 from pytgcalls.__version__ import __version__ as pytgver
 from telethon import Button, events
 
@@ -34,6 +33,7 @@ from YukkiMusic.utils.database import (
     get_top_chats,
     get_topp_users,
 )
+from YukkiMusic.utils.decorators.language import language
 
 loop = asyncio.get_event_loop()
 
