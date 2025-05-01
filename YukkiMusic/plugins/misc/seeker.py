@@ -92,7 +92,7 @@ async def markup_timer():
             if not playing:
                 continue
 
-            duration_seconds = int(playing[0]["seconds"])
+            duration_seconds = int(playing[0]["track"].duration)
 
             try:
                 language = await get_lang(chat_id)
