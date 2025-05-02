@@ -160,6 +160,7 @@ async def import_database(event):
             await mystic.edit(f"Downloading... {current * 100 / total:.1f}%")
         except Exception:
             pass
+
     file_path = os.path.join("cache", reply.file.name + ".tmp")
     with open(file_path, "wb") as out:
         await download_file(
