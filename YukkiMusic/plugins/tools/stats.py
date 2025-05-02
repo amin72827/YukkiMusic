@@ -47,7 +47,7 @@ from YukkiMusic.utils.inline.stats import (
 
 loop = asyncio.get_running_loop()
 
-PING_COMMAND = get_command("STATS_COMMAND")
+STATS_COMMAND = get_command("STATS_COMMAND")
 GSTATS_COMMAND = get_command("GSTATS_COMMAND")
 
 
