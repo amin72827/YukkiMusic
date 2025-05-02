@@ -307,19 +307,20 @@ def panel_markup_1(_, videoid, chat_id):
 
 def panel_markup_2(_, videoid, chat_id):
     buttons = [
-        [
-            Button.inline(text="🔇 Mute", data=f"ADMIN Mute|{chat_id}"),
-            Button.inline(
-                text="🔊 Unmute",
-                data=f"ADMIN Unmute|{chat_id}",
-            ),
-        ],
+        
         [
             Button.inline(
                 text="🔀 Shuffle",
                 data=f"ADMIN Shuffle|{chat_id}",
             ),
             Button.inline(text="🔁 Loop", data=f"ADMIN Loop|{chat_id}"),
+        ],
+                [
+            Button.inline(text="🔇 Mute", data=f"ADMIN Mute|{chat_id}"),
+            Button.inline(
+                text="🔊 Unmute",
+                data=f"ADMIN Unmute|{chat_id}",
+            ),
         ],
         [
             Button.inline(
