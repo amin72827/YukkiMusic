@@ -27,7 +27,7 @@ downloader = {}
 
 class Telegram:
     def __init__(self):
-        self.sleep = 5
+        self.sleep = 2
 
     async def get_url_from_message(self, event) -> str | None:
         messages = [event.message]
