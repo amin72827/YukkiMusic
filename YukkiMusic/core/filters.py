@@ -163,7 +163,7 @@ def command(commands, use_strings=False, prefixes=None):
 
     if isinstance(commands, str):
         commands = [commands]
-    
+
     if prefixes is None:
         prefixes = ["/"]
     elif isinstance(prefixes, str):
