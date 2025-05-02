@@ -61,6 +61,10 @@ async def play_commnd(
         file = rmsg.file
         audio_telegram = True if (rmsg.audio or rmsg.voice) else False
         video_telegram = True if rmsg.video else False
+        if not audio_telegram and not video_telegram and rmsg.document:
+            if rmsg.document.mime_type.startswith('video'):
+                video_telegram = True
+            
 
     if audio_telegram:
         if file.size > config.TG_AUDIO_FILESIZE_LIMIT:
