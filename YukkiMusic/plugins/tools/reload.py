@@ -9,8 +9,8 @@
 #
 
 
-from pyrogram.enums import ChatMembersFilter
 from telethon.tl.types import ChannelParticipantsAdmins
+
 from config import adminlist
 from YukkiMusic import tbot
 from YukkiMusic.core import filters as flt
@@ -27,7 +27,9 @@ async def reload_admin_cache(event, _):
         chat_id = event.chat_id
         authusers = await get_authuser_names(chat_id)
         adminlist[chat_id] = []
-        async for user in tbot.iter_participants(chat_id, filter=ChannelParticipantsAdmins):
+        async for user in tbot.iter_participants(
+            chat_id, filter=ChannelParticipantsAdmins
+        ):
             if user.participant.admin_rights.manage_call:
                 adminlist[chat_id].append(user.id)
         for user in authusers:
