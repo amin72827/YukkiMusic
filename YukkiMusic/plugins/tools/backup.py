@@ -17,12 +17,13 @@ from bson import ObjectId
 from motor.motor_asyncio import AsyncIOMotorClient
 from pymongo.errors import OperationFailure
 from telethon.errors import FloodWaitError
+from telethon import types, utils
 from telethon.tl.types import DocumentAttributeFilename
 
 from config import MONGO_DB_URI, OWNER_ID
 from YukkiMusic import tbot
 from YukkiMusic.core import filters as flt
-from YukkiMusic.core.FastTelethon import download_file
+from YukkiMusic.core.FastTelethon import download_file, upload_file
 from YukkiMusic.core.mongo import DB_NAME
 from YukkiMusic.misc import BANNED_USERS
 
@@ -91,15 +92,20 @@ async def export_database(event):
         )
 
         file_path = await ex_port(db, db_name)
-        try:
-            await tbot.send_file(
-                event.chat_id,
+        with open(file_path, "rb") as out:
+            res = await upload_file(tbot, out)
+            attributes, mime_type = utils.get_attributes(
                 file_path,
-                caption=f"MongoDB backup data for {db_name}",
-                attributes=[DocumentAttributeFilename(file_path)],
             )
-        except FloodWaitError as e:
-            await asyncio.sleep(e.seconds)
+            media = types.InputMediaUploadedDocument(
+                file=res,
+                mime_type=mime_type,
+                 attributes=attributes,
+                force_file=False
+            )
+            await event.reply(file=media,message=f"MongoDB backup data for {db_name}",
+               )
+        
         try:
             await drop_db(_mongo_async_, db_name)
         except OperationFailure:
@@ -119,19 +125,23 @@ async def export_database(event):
         try:
             await mystic.edit(f"Uploading... {current * 100 / total:.1f}%")
         except FloodWaitError as e:
-            await asyncio.sleep(e.seconds)
+            pass
 
     file_path = await ex_port(db, DB_NAME)
-    try:
-        await tbot.send_file(
-            event.chat_id,
-            file_path,
-            caption=f"Mongo Backup of {tbot.me.username}. Reply with /import to restore",
-            progress_callback=progress,
-            attributes=[DocumentAttributeFilename(file_path)],
-        )
-    except FloodWaitError as e:
-        await asyncio.sleep(e.seconds)
+    with open(file_path, "rb") as out:
+        res = await upload_file(tbot, out, progress_callback=progress)
+        attributes, mime_type = utils.get_attributes(
+                file_path,
+            )
+        media = types.InputMediaUploadedDocument(
+                file=res,
+                mime_type=mime_type,
+                 attributes=attributes,
+                force_file=False
+            )
+        await event.reply(file=media,message=f"Mongo Backup of {tbot.me.username}. Reply with /import to restore",
+           
+               )
 
     await mystic.delete()
 
