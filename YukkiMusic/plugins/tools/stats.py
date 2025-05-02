@@ -418,5 +418,3 @@ async def back_buttons(event, _):
                 message=_["gstats_11"].format(tbot.mention),
                 buttons=upl,
             )
-
-
