@@ -106,7 +106,7 @@ async def gstats_global(event, _):
     upl = get_stats_markup(_, event.sender_id in SUDOERS)
     await event.respond(
         file=thumbnail,
-        message=final,
+        text=final,
         buttons=upl,
     )
     await mystic.delete()
@@ -347,11 +347,11 @@ async def overall_stats(event, _):
     """
     try:
         await event.edit(
-            file=config.STATS_IMG_URL, message=text, parse_mode="md", buttons=upl
+            file=config.STATS_IMG_URL, text=text, parse_mode="md", buttons=upl
         )
     except MessageIdInvalidError:
         await event.respond(
-            file=config.STATS_IMG_URL, message=text, parse_mode="md", buttons=upl
+            file=config.STATS_IMG_URL, text=text, parse_mode="md", buttons=upl
         )
 
 
@@ -367,7 +367,7 @@ async def back_buttons(event, _):
         await event.answer()
     except Exception:
         pass
-    command = event.pattern_matches[0].group(1).decode("utf-8")
+    command = event.pattern_match[0].group(1).decode("utf-8")
     if command == "TOPMARKUPGET":
         upl = top_ten_stats_markup(_)
 
