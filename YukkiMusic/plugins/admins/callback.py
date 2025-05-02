@@ -140,7 +140,7 @@ async def admin_callback(event, _):
     if command == "pause":
         videoid = db[chat_id][0]["track"].vidid
         button = panel_markup_1(_, videoid, chat_id)
-        
+
         if not await is_music_playing(chat_id):
             await event.edit(buttons=button)
             return await event.answer(_["admin_1"], alert=True)
@@ -152,7 +152,7 @@ async def admin_callback(event, _):
     elif command == "resume":
         videoid = db[chat_id][0]["track"].vidid
         button = panel_markup_1(_, videoid, chat_id)
-        
+
         if await is_music_playing(chat_id):
             await event.edit(buttons=button)
             return await event.answer(_["admin_3"], alert=True)
