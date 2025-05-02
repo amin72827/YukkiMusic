@@ -8,7 +8,6 @@
 # All rights reserved.
 #
 
-import asyncio
 import json
 import os
 from datetime import datetime
@@ -17,7 +16,6 @@ from bson import ObjectId
 from motor.motor_asyncio import AsyncIOMotorClient
 from pymongo.errors import OperationFailure
 from telethon import types, utils
-from telethon.errors import FloodWaitError
 
 from config import MONGO_DB_URI, OWNER_ID
 from YukkiMusic import tbot
