@@ -19,12 +19,11 @@ from telethon import events
 from telethon.errors import MessageIdInvalidError
 
 import config
-from config import BANNED_USERS
 from strings import get_command
 from YukkiMusic import tbot
 from YukkiMusic.core import filters
 from YukkiMusic.core.userbot import assistants
-from YukkiMusic.misc import SUDOERS, pymongodb
+from YukkiMusic.misc import BANNED_USERS, SUDOERS, pymongodb
 from YukkiMusic.platforms import youtube
 from YukkiMusic.utils.database import (
     get_global_tops,
