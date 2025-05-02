@@ -49,7 +49,7 @@ loop = asyncio.get_event_loop()
 async def stats_command(event, _):
     upl = stats_buttons(_, event.sender_id in SUDOERS)
     await event.reply(
-        _["gstats_11"].format(tbot.me.username), file=config.STATS_IMG_URL, buttons=upl
+        _["gstats_11"].format(tbot.username), file=config.STATS_IMG_URL, buttons=upl
     )
 
 
@@ -82,10 +82,10 @@ async def gstats_command(event, _):
             await mystic.edit(_["gstats_2"])
             return
 
-        track_info = await youtube.track(videoid, True)
-        title = track_info[0].title()
-        thumbnail = track_info[3]
-        final = f"Top played Tracks on {tbot.me.username}\n\n**Title:** {title}\n\nPlayed** {co} **times"
+        track_info = await youtube.track(videoid)
+        title = track_info.title.title()
+        thumbnail = track_info.thb
+        final = f"Top played Tracks on {tbot.username}\n\n**Title:** {title}\n\nPlayed** {co} **times"
         upl = get_stats_markup(_, event.sender_id in SUDOERS)
 
         await tbot.send_file(event.chat_id, thumbnail, caption=final, buttons=upl)
