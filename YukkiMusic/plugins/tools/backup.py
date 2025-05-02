@@ -16,9 +16,8 @@ from datetime import datetime
 from bson import ObjectId
 from motor.motor_asyncio import AsyncIOMotorClient
 from pymongo.errors import OperationFailure
-from telethon.errors import FloodWaitError
 from telethon import types, utils
-from telethon.tl.types import DocumentAttributeFilename
+from telethon.errors import FloodWaitError
 
 from config import MONGO_DB_URI, OWNER_ID
 from YukkiMusic import tbot
@@ -98,14 +97,13 @@ async def export_database(event):
                 file_path,
             )
             media = types.InputMediaUploadedDocument(
-                file=res,
-                mime_type=mime_type,
-                 attributes=attributes,
-                force_file=False
+                file=res, mime_type=mime_type, attributes=attributes, force_file=False
             )
-            await event.reply(file=media,message=f"MongoDB backup data for {db_name}",
-               )
-        
+            await event.reply(
+                file=media,
+                message=f"MongoDB backup data for {db_name}",
+            )
+
         try:
             await drop_db(_mongo_async_, db_name)
         except OperationFailure:
@@ -124,24 +122,22 @@ async def export_database(event):
     async def progress(current, total):
         try:
             await mystic.edit(f"Uploading... {current * 100 / total:.1f}%")
-        except FloodWaitError as e:
+        except FloodWaitError:
             pass
 
     file_path = await ex_port(db, DB_NAME)
     with open(file_path, "rb") as out:
         res = await upload_file(tbot, out, progress_callback=progress)
         attributes, mime_type = utils.get_attributes(
-                file_path,
-            )
+            file_path,
+        )
         media = types.InputMediaUploadedDocument(
-                file=res,
-                mime_type=mime_type,
-                 attributes=attributes,
-                force_file=False
-            )
-        await event.reply(file=media,message=f"Mongo Backup of {tbot.me.username}. Reply with /import to restore",
-           
-               )
+            file=res, mime_type=mime_type, attributes=attributes, force_file=False
+        )
+        await event.reply(
+            file=media,
+            message=f"Mongo Backup of {tbot.me.username}. Reply with /import to restore",
+        )
 
     await mystic.delete()
 
