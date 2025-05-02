@@ -22,6 +22,7 @@ from telethon.tl.types import DocumentAttributeFilename
 from config import MONGO_DB_URI, OWNER_ID
 from YukkiMusic import tbot
 from YukkiMusic.core import filters as flt
+from YukkiMusic.core.FastTelethon import download_file
 from YukkiMusic.core.mongo import DB_NAME
 from YukkiMusic.misc import BANNED_USERS
 
@@ -156,11 +157,16 @@ async def import_database(event):
     async def progress(current, total):
         try:
             await mystic.edit(f"Downloading... {current * 100 / total:.1f}%")
-        except FloodWaitError:
+        except Exception:
             # await asyncio.sleep(e.seconds)
-            c
-
-    file_path = await reply.download_media(progress_callback=progress)
+            pass
+    with open(file_path, "wb") as out:
+        await download_file(
+                        tbot,
+                        reply.document,
+                        out,
+                        progress_callback=progress,
+                    )
 
     try:
         with open(file_path) as backup_file:
