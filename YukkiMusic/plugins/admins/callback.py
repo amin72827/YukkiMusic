@@ -138,24 +138,28 @@ async def admin_callback(event, _):
                 if sender.id not in admins:
                     return await event.answer(_["admin_19"], alert=True)
     if command == "pause":
+        videoid = db[chat_id][0]["track"].vidid
+        button = panel_markup_1(_, videoid, chat_id)
+        
         if not await is_music_playing(chat_id):
+            await event.edit(buttons=button)
             return await event.answer(_["admin_1"], alert=True)
         await event.answer()
         await music_off(chat_id)
         await Yukki.pause_stream(chat_id)
         await event.reply(_["admin_2"].format(mention), link_preview=False)
-        videoid = db[chat_id][0]["track"].vidid
-        button = panel_markup_1(_, videoid, chat_id)
         await event.edit(buttons=button)
     elif command == "resume":
+        videoid = db[chat_id][0]["track"].vidid
+        button = panel_markup_1(_, videoid, chat_id)
+        
         if await is_music_playing(chat_id):
+            await event.edit(buttons=button)
             return await event.answer(_["admin_3"], alert=True)
         await event.answer()
         await music_on(chat_id)
         await Yukki.resume_stream(chat_id)
         await event.reply(_["admin_4"].format(mention), link_preview=False)
-        videoid = db[chat_id][0]["track"].vidid
-        button = panel_markup_1(_, videoid, chat_id)
         await event.edit(buttons=button)
     elif command == "stop" or command == "end":
         try:
