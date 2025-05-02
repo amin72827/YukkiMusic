@@ -189,7 +189,7 @@ async def handle_get_stats(event, _):
     await event.edit(msg, file=config.GLOBAL_IMG_URL, buttons=upl)
 
 
-@tbot.on(events.CallbackQuery(pattern="TopOverall", func=~BANNED_USERS))
+@tbot.on(events.CallbackQuery(pattern=r"TopOverall:(\w+)", func=~BANNED_USERS))
 @language
 async def handle_top_overall(event, _):
     what = event.pattern_match.group(1).decode()
