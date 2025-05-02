@@ -14,10 +14,9 @@ from sys import version as pyver
 
 import psutil
 from pytgcalls.__version__ import __version__ as pytgver
-from telethon import Button, events
+from telethon import events
 
 import config
-from strings import get_string
 from YukkiMusic import tbot
 from YukkiMusic.core import filters as flt
 from YukkiMusic.core.userbot import assistants
@@ -35,7 +34,6 @@ from YukkiMusic.utils.database import (
 )
 from YukkiMusic.utils.decorators.language import language
 from YukkiMusic.utils.inline.stats import (
-    back_stats_buttons,
     back_stats_markup,
     get_stats_markup,
     overallback_stats_markup,
