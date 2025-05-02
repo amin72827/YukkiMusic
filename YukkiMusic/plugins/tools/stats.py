@@ -23,7 +23,8 @@ from strings import get_command
 from YukkiMusic import tbot
 from YukkiMusic.core import filters
 from YukkiMusic.core.userbot import assistants
-from YukkiMusic.misc import BANNED_USERS, SUDOERS, pymongodb
+from YukkiMusic.core.mongo import mongodb
+from YukkiMusic.misc import BANNED_USERS, SUDOERS
 from YukkiMusic.platforms import youtube
 from YukkiMusic.utils.database import (
     get_global_tops,
@@ -307,7 +308,7 @@ async def overall_stats(event, _):
     free = hdd.free / (1024.0**3)
     free = str(free)
     mod = int(tbot.loaded_plug_counts)
-    db = pymongodb
+    db = mongodb
     call = db.command("dbstats")
     datasize = call["dataSize"] / 1024
     datasize = str(datasize)
