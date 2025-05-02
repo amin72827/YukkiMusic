@@ -276,20 +276,20 @@ async def overall_stats(event, _):
 
 @tbot.on(events.CallbackQuery(pattern="bot_stats_sudo"))
 @language
-async def overall_stats(client, CallbackQuery, _):
-    if CallbackQuery.from_user.id not in SUDOERS:
-        return await CallbackQuery.answer("ᴏɴʟʏ ғᴏʀ sᴜᴅᴏ ᴜsᴇʀ's", show_alert=True)
-    callback_data = CallbackQuery.data.strip()
+async def overall_stats(event, _):
+    if event.sender_id not in SUDOERS:
+        return await event.answer("ᴏɴʟʏ ғᴏʀ sᴜᴅᴏ ᴜsᴇʀ's", alert=True)
+    callback_data = event.data.decode("utf-8").strip()
     what = callback_data.split(None, 1)[1]
     if what != "s":
         upl = overallback_stats_markup(_)
     else:
         upl = back_stats_buttons(_)
     try:
-        await CallbackQuery.answer()
+        await event.answer()
     except Exception:
         pass
-    await CallbackQuery.edit(_["gstats_8"])
+    await event.edit(_["gstats_8"])
     sc = platform.system()
     p_core = psutil.cpu_count(logical=False)
     t_core = psutil.cpu_count(logical=True)
@@ -349,70 +349,63 @@ async def overall_stats(client, CallbackQuery, _):
 **Total DB Keys:** {objects}
 **Total Bot Queries:** `{total_queries} `
     """
-    med = InputMediaPhoto(media=config.STATS_IMG_URL, caption=text)
     try:
-        await CallbackQuery.edit_message_media(media=med, buttons=upl)
-    except MessageIdInvalid:
-        await CallbackQuery.message.reply_photo(
-            photo=config.STATS_IMG_URL, caption=text, buttons=upl
+        await event.edit(file=config.STATS_IMG_URL, message=text, parse_mode="md", buttons=upl)
+    except MessageIdInvalidError:
+        await event.respond(
+            file=config.STATS_IMG_URL, message=text, parse_mode="md", buttons=upl
         )
 
-
-@tbot.on_callback_query(
-    filters.regex(pattern=r"^(TOPMARKUPGET|GETSTATS|GlobalStats)$") & ~BANNED_USERS
-)
+@tbot.on(events.CallbackQuery(pattern=r"^(TOPMARKUPGET|GETSTATS|GlobalStats)$") func=~BANNED_USERS))
 @language
-async def back_buttons(client, CallbackQuery, _):
+async def back_buttons(event, _):
     try:
-        await CallbackQuery.answer()
+        await event.answer()
     except Exception:
         pass
-    command = CallbackQuery.matches[0].group(1)
+    command = event.pattern_matches[0].group(1).decode("utf-8")
     if command == "TOPMARKUPGET":
         upl = top_ten_stats_markup(_)
-        med = InputMediaPhoto(
-            media=config.GLOBAL_IMG_URL,
-            caption=_["gstats_9"],
-        )
+        
         try:
-            await CallbackQuery.edit_message_media(media=med, buttons=upl)
-        except MessageIdInvalid:
-            await CallbackQuery.message.reply_photo(
-                photo=config.GLOBAL_IMG_URL,
-                caption=_["gstats_9"],
+            await event.edit(file=config.GLOBAL_IMG_URL, message=_["gstats_9"], buttons=upl)
+        except MessageIdInvalidError:
+            await event.respond(
+                file=config.GLOBAL_IMG_URL,
+                message=_["gstats_9"],
                 buttons=upl,
             )
     if command == "GlobalStats":
         upl = get_stats_markup(
             _,
-            True if CallbackQuery.from_user.id in SUDOERS else False,
+           event.sender_id in SUDOERS,
         )
-        med = InputMediaPhoto(
-            media=config.GLOBAL_IMG_URL,
-            caption=_["gstats_10"].format(tbot.mention),
-        )
+        
         try:
-            await CallbackQuery.edit_message_media(media=med, buttons=upl)
-        except MessageIdInvalid:
-            await CallbackQuery.message.reply_photo(
-                photo=config.GLOBAL_IMG_URL,
-                caption=_["gstats_10"].format(tbot.mention),
+            await event.edit(file=config.GLOBAL_IMG_URL, message=_["gstats_10"].format(tbot.mention), buttons=upl)
+        
+            
+        except MessageIdInvalidError:
+            await event.respond(
+                file=config.GLOBAL_IMG_URL,
+                message=_["gstats_10"].format(tbot.mention),
                 buttons=upl,
             )
+            
     if command == "GETSTATS":
         upl = stats_buttons(
             _,
-            True if CallbackQuery.from_user.id in SUDOERS else False,
+            event.sender_id in SUDOERS,
         )
-        med = InputMediaPhoto(
-            media=config.STATS_IMG_URL,
-            caption=_["gstats_11"].format(tbot.mention),
-        )
+        
         try:
-            await CallbackQuery.edit_message_media(media=med, buttons=upl)
-        except MessageIdInvalid:
-            await CallbackQuery.message.reply_photo(
-                photo=config.STATS_IMG_URL,
-                caption=_["gstats_11"].format(tbot.mention),
+            await event.edit(file=config.GLOBAL_IMG_URL, message=_["gstats_11"].format(tbot.mention), buttons=upl)
+        
+            
+        except MessageIdInvalidError:
+            await event.respond(
+                file=config.GLOBAL_IMG_URL,
+                message=_["gstats_11"].format(tbot.mention),
                 buttons=upl,
             )
+            
