@@ -59,12 +59,9 @@ async def drop_db(client, db_name):
 async def edit_or_reply(event, text):
     try:
         return await event.edit(text, link_preview=False)
-    except FloodWaitError as e:
-        await asyncio.sleep(e.seconds)
-        return await event.edit(text, link_preview=False)
     except Exception:
-        pass
-    return await event.reply(text, link_preview=False)
+        await event.delete()
+        return await event.reply(text, link_preview=False)
 
 
 @tbot.on_message(flt.command("export") & ~BANNED_USERS)
@@ -122,7 +119,7 @@ async def export_database(event):
     async def progress(current, total):
         try:
             await mystic.edit(f"Uploading... {current * 100 / total:.1f}%")
-        except FloodWaitError:
+        except Exception:
             pass
 
     file_path = await ex_port(db, DB_NAME)
@@ -164,7 +161,6 @@ async def import_database(event):
         try:
             await mystic.edit(f"Downloading... {current * 100 / total:.1f}%")
         except Exception:
-            # await asyncio.sleep(e.seconds)
             pass
 
     with open(file_path, "wb") as out:
