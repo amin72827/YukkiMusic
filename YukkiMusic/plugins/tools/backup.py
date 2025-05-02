@@ -89,7 +89,7 @@ async def export_database(event):
         )
 
         file_path = await ex_port(db, db_name)
-        with open(file_path) as out:
+        with open(file_path, "rb") as out:
             res = await upload_file(tbot, out)
             attributes, mime_type = utils.get_attributes(
                 file_path,
@@ -124,7 +124,7 @@ async def export_database(event):
             pass
 
     file_path = await ex_port(db, DB_NAME)
-    with open(file_path) as out:
+    with open(file_path, "rb") as out:
         res = await upload_file(tbot, out, progress_callback=progress)
         attributes, mime_type = utils.get_attributes(
             file_path,
@@ -165,7 +165,7 @@ async def import_database(event):
             pass
 
     file_path = os.path.join("cache", reply.file.name + ".tmp")
-    with open(file_path, "w") as out:
+    with open(file_path, "wb") as out:
         await download_file(
             tbot,
             reply.document,
