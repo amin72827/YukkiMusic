@@ -213,7 +213,7 @@ async def play_commnd(
         else:
             buttons = livestream_markup(
                 _,
-                details.vidid
+                details.vidid,
                 #track_id,
                 user_id,
                 "v" if video else "a",
