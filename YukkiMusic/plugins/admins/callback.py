@@ -144,6 +144,9 @@ async def admin_callback(event, _):
         await music_off(chat_id)
         await Yukki.pause_stream(chat_id)
         await event.reply(_["admin_2"].format(mention), link_preview=False)
+        videoid = db[chat_id][0]["track"].vidid
+        button = panel_markup_1(_, videoid, chat_id)
+        await event.edit(buttons=button)
     elif command == "resume":
         if await is_music_playing(chat_id):
             return await event.answer(_["admin_3"], alert=True)
@@ -151,6 +154,9 @@ async def admin_callback(event, _):
         await music_on(chat_id)
         await Yukki.resume_stream(chat_id)
         await event.reply(_["admin_4"].format(mention), link_preview=False)
+        videoid = db[chat_id][0]["track"].vidid
+        button = panel_markup_1(_, videoid, chat_id)
+        await event.edit(buttons=button)
     elif command == "stop" or command == "end":
         try:
             check = db.get(chat_id)
