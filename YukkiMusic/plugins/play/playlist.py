@@ -213,7 +213,7 @@ async def add_playlist(event, _):
     title = (tracktitle[:50]).title()
     plist = {
         "videoid": track.vidid,
-        "title": track.title[:30.],
+        "title": track.title[:30.0],
         "duration": track.duration,
     }
     await save_playlist(user_id, videoid, plist)
