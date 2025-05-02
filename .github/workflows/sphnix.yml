@@ -2,6 +2,9 @@ name: "Sphinx: Render docs"
 
 on:
   push:
+    paths:
+      - "**.md"
+      - "**.rst"
 
 jobs:
   build:
