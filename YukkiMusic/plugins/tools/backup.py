@@ -51,7 +51,10 @@ async def ex_port(db, db_name):
 
 
 async def drop_db(client, db_name):
-    await client.drop_database(db_name)
+    db = client[db_name]
+    collections = await db.list_collection_names()
+    for name in collections:
+        await db[name].drop()
 
 
 async def edit_or_reply(event, text):
@@ -86,7 +89,7 @@ async def export_database(event):
         )
 
         file_path = await ex_port(db, db_name)
-        with open(file_path, "rb") as out:
+        with open(file_path, "r") as out:
             res = await upload_file(tbot, out)
             attributes, mime_type = utils.get_attributes(
                 file_path,
@@ -121,7 +124,7 @@ async def export_database(event):
             pass
 
     file_path = await ex_port(db, DB_NAME)
-    with open(file_path, "rb") as out:
+    with open(file_path, "r") as out:
         res = await upload_file(tbot, out, progress_callback=progress)
         attributes, mime_type = utils.get_attributes(
             file_path,
@@ -162,7 +165,7 @@ async def import_database(event):
             pass
 
     file_path = os.path.join("cache", reply.file.name + ".tmp")
-    with open(file_path, "wb") as out:
+    with open(file_path, "w") as out:
         await download_file(
             tbot,
             reply.document,
