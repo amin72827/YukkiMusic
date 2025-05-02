@@ -156,8 +156,8 @@ async def import_database(event):
     async def progress(current, total):
         try:
             await mystic.edit(f"Downloading... {current * 100 / total:.1f}%")
-        except FloodWaitError as e:
-            #await asyncio.sleep(e.seconds)
+        except FloodWaitError:
+            # await asyncio.sleep(e.seconds)
             c
 
     file_path = await reply.download_media(progress_callback=progress)
