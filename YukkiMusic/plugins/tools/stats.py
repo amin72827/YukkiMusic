@@ -7,6 +7,7 @@
 #
 # All rights reserved.
 #
+'''
 import asyncio
 import platform
 from sys import version as pyver
@@ -420,3 +421,6 @@ async def back_buttons(event, _):
                 message=_["gstats_11"].format(tbot.mention),
                 buttons=upl,
             )
+
+
+'''
