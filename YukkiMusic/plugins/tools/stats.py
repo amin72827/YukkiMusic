@@ -356,9 +356,9 @@ async def overall_stats(event, _):
 
 
 @tbot.on(
-    events.CallbackQuery(pattern=r"^(TOPMARKUPGET|GETSTATS|GlobalStats)$"),
+    events.CallbackQuery(pattern=r"^(TOPMARKUPGET|GETSTATS|GlobalStats)$",
     func=~BANNED_USERS,
-)
+))
 @language
 async def back_buttons(event, _):
     try:
