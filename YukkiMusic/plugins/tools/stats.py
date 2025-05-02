@@ -14,8 +14,6 @@ from sys import version as pyver
 import psutil
 from pyrogram import __version__ as pyrover
 from pyrogram import filters
-from pyrogram.errors import MessageIdInvalid
-from pyrogram.types import InputMediaPhoto
 from pytgcalls.__version__ import __version__ as pytgver
 from telethon import events
 from telethon.errors import MessageIdInvalidError
@@ -350,13 +348,19 @@ async def overall_stats(event, _):
 **Total Bot Queries:** `{total_queries} `
     """
     try:
-        await event.edit(file=config.STATS_IMG_URL, message=text, parse_mode="md", buttons=upl)
+        await event.edit(
+            file=config.STATS_IMG_URL, message=text, parse_mode="md", buttons=upl
+        )
     except MessageIdInvalidError:
         await event.respond(
             file=config.STATS_IMG_URL, message=text, parse_mode="md", buttons=upl
         )
 
-@tbot.on(events.CallbackQuery(pattern=r"^(TOPMARKUPGET|GETSTATS|GlobalStats)$"), func=~BANNED_USERS)
+
+@tbot.on(
+    events.CallbackQuery(pattern=r"^(TOPMARKUPGET|GETSTATS|GlobalStats)$"),
+    func=~BANNED_USERS,
+)
 @language
 async def back_buttons(event, _):
     try:
@@ -366,9 +370,11 @@ async def back_buttons(event, _):
     command = event.pattern_matches[0].group(1).decode("utf-8")
     if command == "TOPMARKUPGET":
         upl = top_ten_stats_markup(_)
-        
+
         try:
-            await event.edit(file=config.GLOBAL_IMG_URL, message=_["gstats_9"], buttons=upl)
+            await event.edit(
+                file=config.GLOBAL_IMG_URL, message=_["gstats_9"], buttons=upl
+            )
         except MessageIdInvalidError:
             await event.respond(
                 file=config.GLOBAL_IMG_URL,
@@ -378,34 +384,39 @@ async def back_buttons(event, _):
     if command == "GlobalStats":
         upl = get_stats_markup(
             _,
-           event.sender_id in SUDOERS,
+            event.sender_id in SUDOERS,
         )
-        
+
         try:
-            await event.edit(file=config.GLOBAL_IMG_URL, message=_["gstats_10"].format(tbot.mention), buttons=upl)
-        
-            
+            await event.edit(
+                file=config.GLOBAL_IMG_URL,
+                message=_["gstats_10"].format(tbot.mention),
+                buttons=upl,
+            )
+
         except MessageIdInvalidError:
             await event.respond(
                 file=config.GLOBAL_IMG_URL,
                 message=_["gstats_10"].format(tbot.mention),
                 buttons=upl,
             )
-            
+
     if command == "GETSTATS":
         upl = stats_buttons(
             _,
             event.sender_id in SUDOERS,
         )
-        
+
         try:
-            await event.edit(file=config.GLOBAL_IMG_URL, message=_["gstats_11"].format(tbot.mention), buttons=upl)
-        
-            
+            await event.edit(
+                file=config.GLOBAL_IMG_URL,
+                message=_["gstats_11"].format(tbot.mention),
+                buttons=upl,
+            )
+
         except MessageIdInvalidError:
             await event.respond(
                 file=config.GLOBAL_IMG_URL,
                 message=_["gstats_11"].format(tbot.mention),
                 buttons=upl,
             )
-            
