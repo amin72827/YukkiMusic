@@ -160,13 +160,14 @@ async def import_database(event):
         except Exception:
             # await asyncio.sleep(e.seconds)
             pass
+
     with open(file_path, "wb") as out:
         await download_file(
-                        tbot,
-                        reply.document,
-                        out,
-                        progress_callback=progress,
-                    )
+            tbot,
+            reply.document,
+            out,
+            progress_callback=progress,
+        )
 
     try:
         with open(file_path) as backup_file:
