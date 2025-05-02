@@ -43,7 +43,7 @@ async def ex_port(db, db_name):
         documents = await collection.find().to_list(length=None)
         data[collection_name] = documents
 
-    file_path = os.path.join("cache", f"{db_name}_backup.txt")
+    file_path = os.path.join("cache", f"{db_name}_backup.json")
     with open(file_path, "w") as backup_file:
         json.dump(data, backup_file, indent=4, cls=CustomJSONEncoder)
 
@@ -160,7 +160,7 @@ async def import_database(event):
             await mystic.edit(f"Downloading... {current * 100 / total:.1f}%")
         except Exception:
             pass
-
+    file_path = os.path.join("cache", reply.file.name + ".tmp")
     with open(file_path, "wb") as out:
         await download_file(
             tbot,
