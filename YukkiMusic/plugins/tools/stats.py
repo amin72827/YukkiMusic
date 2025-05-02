@@ -7,14 +7,12 @@
 #
 # All rights reserved.
 #
-'''
 import asyncio
 import platform
 from sys import version as pyver
 
 import psutil
 from pyrogram import __version__ as pyrover
-from pyrogram import filters
 from pytgcalls.__version__ import __version__ as pytgver
 from telethon import events
 from telethon.errors import MessageIdInvalidError
@@ -309,8 +307,7 @@ async def overall_stats(event, _):
     free = hdd.free / (1024.0**3)
     free = str(free)
     mod = int(tbot.loaded_plug_counts)
-    db = mongodb
-    call = db.command("dbstats")
+    call = await mongodb.command("dbstats")
     datasize = call["dataSize"] / 1024
     datasize = str(datasize)
     storage = call["storageSize"] / 1024
