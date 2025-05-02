@@ -47,11 +47,11 @@ from YukkiMusic.utils.inline.stats import (
 
 loop = asyncio.get_running_loop()
 
-PING_COMMAND = get_command("PING_COMMAND")
+PING_COMMAND = get_command("STATS_COMMAND")
 GSTATS_COMMAND = get_command("GSTATS_COMMAND")
 
 
-@tbot.on_message(filters.command(PING_COMMAND) & ~BANNED_USERS)
+@tbot.on_message(filters.command(STATS_COMMAND) & ~BANNED_USERS)
 @language
 async def stats_global(event, _):
     upl = stats_buttons(_, event.sender_id in SUDOERS)
@@ -263,11 +263,11 @@ async def overall_stats(event, _):
 **Playlist Play Limit:** {fetch_playlist}"""
     try:
         await event.edit(
-            file=config.STATS_IMG_URL, message=text, parse_mode="md", buttons=upl
+            file=config.STATS_IMG_URL, text=text, parse_mode="md", buttons=upl
         )
     except MessageIdInvalidError:
         await event.respond(
-            file=config.STATS_IMG_URL, message=text, buttons=upl, parse_mode="md"
+            file=config.STATS_IMG_URL, text=text, buttons=upl, parse_mode="md"
         )
 
 
