@@ -15,18 +15,19 @@ import psutil
 from pyrogram import __version__ as pyrover
 from pyrogram import filters
 from pyrogram.errors import MessageIdInvalid
-from pyrogram.types import CallbackQuery, InputMediaPhoto, Message
+from pyrogram.types import InputMediaPhoto
 from pytgcalls.__version__ import __version__ as pytgver
+from telethon import events
 from telethon.errors import MessageIdInvalidError
-from strings import get_command
+
 import config
 from config import BANNED_USERS
-from strings import command
-from YukkiMusic import Platform, tbot
-from YukkiMusic.platforms import youtube
+from strings import get_command
+from YukkiMusic import tbot
 from YukkiMusic.core import filters
 from YukkiMusic.core.userbot import assistants
 from YukkiMusic.misc import SUDOERS, pymongodb
+from YukkiMusic.platforms import youtube
 from YukkiMusic.utils.database import (
     get_global_tops,
     get_particulars,
@@ -37,7 +38,6 @@ from YukkiMusic.utils.database import (
     get_top_chats,
     get_topp_users,
 )
-from telethon import events
 from YukkiMusic.utils.decorators.language import language
 from YukkiMusic.utils.inline.stats import (
     back_stats_buttons,
@@ -52,6 +52,8 @@ loop = asyncio.get_running_loop()
 
 PING_COMMAND = get_command("PING_COMMAND")
 GSTATS_COMMAND = get_command("GSTATS_COMMAND")
+
+
 @tbot.on_message(filters.command(PING_COMMAND) & ~BANNED_USERS)
 @language
 async def stats_global(event, _):
@@ -61,6 +63,7 @@ async def stats_global(event, _):
         message=_["gstats_11"].format(tbot.mention),
         buttons=upl,
     )
+
 
 @tbot.on_message(filters.command(GSTATS_COMMAND) & ~BANNED_USERS)
 @language
@@ -105,7 +108,6 @@ async def gstats_global(event, _):
     final = f"Top played Tracks on  {tbot.mention}\n\n**Title:** {title}\n\nPlayed** {co} **times"
     upl = get_stats_markup(_, event.sender_id in SUDOERS)
     await event.respond(
-        
         file=thumbnail,
         message=final,
         buttons=upl,
@@ -126,9 +128,7 @@ async def top_users_ten(event, _):
         pass
     chat = await event.get_chat()
     mystic = await event.edit(
-        _["gstats_3"].format(
-            f"ᴏғ {chat.title}" if what == "Here" else what
-        )
+        _["gstats_3"].format(f"ᴏғ {chat.title}" if what == "Here" else what)
     )
     if what == "Tracks":
         stats = await get_global_tops()
@@ -199,11 +199,7 @@ async def top_users_ten(event, _):
                 break
             try:
                 x = await tbot.get_entity(items)
-                extract = (
-                    x.first_name
-                    if what == "Users"
-                    else x.title
-                )
+                extract = x.first_name if what == "Users" else x.title
                 if extract is None:
                     continue
                 await asyncio.sleep(0.5)
@@ -220,9 +216,7 @@ async def top_users_ten(event, _):
     try:
         await event.edit(file=config.GLOBAL_IMG_URL, message=msg, buttons=upl)
     except MessageIdInvalidError:
-        await event.respond(
-            file=config.GLOBAL_IMG_URL, message=msg, buttons=upl
-        )
+        await event.respond(file=config.GLOBAL_IMG_URL, message=msg, buttons=upl)
 
 
 @tbot.on(events.CallbackQuery(pattern="TopOverall", func=~BANNED_USERS))
@@ -271,11 +265,14 @@ async def overall_stats(event, _):
 **Bot's Server Playlist Limit:** {playlist_limit}
 **Playlist Play Limit:** {fetch_playlist}"""
     try:
-        await event.edit(file=config.STATS_IMG_URL, message=text, parse_mode="md", buttons=upl)
+        await event.edit(
+            file=config.STATS_IMG_URL, message=text, parse_mode="md", buttons=upl
+        )
     except MessageIdInvalidError:
         await event.respond(
             file=config.STATS_IMG_URL, message=text, buttons=upl, parse_mode="md"
         )
+
 
 @tbot.on(events.CallbackQuery(pattern="bot_stats_sudo"))
 @language
