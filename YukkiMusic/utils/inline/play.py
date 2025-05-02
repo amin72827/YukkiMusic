@@ -12,8 +12,8 @@ import math
 from telethon import Button
 
 from YukkiMusic.core.enum import SourceType
-from YukkiMusic.utils.formatters import time_to_seconds
 from YukkiMusic.utils.database import is_music_playing_sync
+from YukkiMusic.utils.formatters import time_to_seconds
 
 __all__ = [
     "stream_markup_timer",
@@ -273,28 +273,18 @@ def slider_markup(_, videoid, user_id, query, query_type, channel, fplay):
 
 
 def panel_markup_1(_, videoid, chat_id):
-    pause_button = Button.inline(
-    text="⏸ Pause",
-    data=f"ADMIN Pause|{chat_id}"
-)
+    pause_button = Button.inline(text="⏸ Pause", data=f"ADMIN Pause|{chat_id}")
 
-    resume_button = Button.inline(
-    text="▶️ Resume",
-    data=f"ADMIN Resume|{chat_id}"
-)
+    resume_button = Button.inline(text="▶️ Resume", data=f"ADMIN Resume|{chat_id}")
     buttons = [
         [
             pause_button if is_music_playing_sync(chat_id) else resume_button,
             Button.inline(text="⏯ Skip", data=f"ADMIN Skip|{chat_id}"),
-           
         ],
-        
         [
-             Button.inline(text="⏹ Stop", data=f"ADMIN Stop|{chat_id}"),
-             Button.inline(text="🔁 Replay ", data=f"ADMIN Replay|{chat_id}"),
-        
+            Button.inline(text="⏹ Stop", data=f"ADMIN Stop|{chat_id}"),
+            Button.inline(text="🔁 Replay ", data=f"ADMIN Replay|{chat_id}"),
         ],
-
         [
             Button.inline(
                 text="◀️",
