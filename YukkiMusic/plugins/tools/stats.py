@@ -106,7 +106,7 @@ async def gstats_global(event, _):
     upl = get_stats_markup(_, event.sender_id in SUDOERS)
     await event.respond(
         file=thumbnail,
-        text=final,
+        message=final,
         buttons=upl,
     )
     await mystic.delete()
@@ -211,7 +211,7 @@ async def top_users_ten(event, _):
         )
         msg = temp + msg
     try:
-        await event.edit(file=config.GLOBAL_IMG_URL, message=msg, buttons=upl)
+        await event.edit(file=config.GLOBAL_IMG_URL, text=msg, buttons=upl)
     except MessageIdInvalidError:
         await event.respond(file=config.GLOBAL_IMG_URL, message=msg, buttons=upl)
 
@@ -267,7 +267,7 @@ async def overall_stats(event, _):
         )
     except MessageIdInvalidError:
         await event.respond(
-            file=config.STATS_IMG_URL, text=text, buttons=upl, parse_mode="md"
+            file=config.STATS_IMG_URL, message=text, buttons=upl, parse_mode="md"
         )
 
 
@@ -351,7 +351,7 @@ async def overall_stats(event, _):
         )
     except MessageIdInvalidError:
         await event.respond(
-            file=config.STATS_IMG_URL, text=text, parse_mode="md", buttons=upl
+            file=config.STATS_IMG_URL, message=text, parse_mode="md", buttons=upl
         )
 
 
@@ -367,7 +367,7 @@ async def back_buttons(event, _):
         await event.answer()
     except Exception:
         pass
-    command = event.pattern_match[0].group(1).decode("utf-8")
+    command = event.pattern_match.group(1).decode("utf-8")
     if command == "TOPMARKUPGET":
         upl = top_ten_stats_markup(_)
 
@@ -390,7 +390,7 @@ async def back_buttons(event, _):
         try:
             await event.edit(
                 file=config.GLOBAL_IMG_URL,
-                message=_["gstats_10"].format(tbot.mention),
+                text=_["gstats_10"].format(tbot.mention),
                 buttons=upl,
             )
 
@@ -410,7 +410,7 @@ async def back_buttons(event, _):
         try:
             await event.edit(
                 file=config.GLOBAL_IMG_URL,
-                message=_["gstats_11"].format(tbot.mention),
+                text=_["gstats_11"].format(tbot.mention),
                 buttons=upl,
             )
 
