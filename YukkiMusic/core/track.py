@@ -123,7 +123,7 @@ class Track:
 
             @asyncify
             def _download():
-                with YoutubeDL(ytdl_opts) as ydl: 
+                with YoutubeDL(ytdl_opts) as ydl:
                     try:
                         info = ydl.extract_info(self.download_url, False)
                     except Exception as e:
