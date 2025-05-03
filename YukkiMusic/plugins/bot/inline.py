@@ -31,7 +31,8 @@ async def inline_query_handler(event):
     if text.strip() == "":
         try:
             await event.answer(results=answer(), cache_time=10)
-        except Exception:
+        except Exception as e:
+            await tbot.handle_error(e)
             return
     else:
         a = VideosSearch(text, limit=20)
