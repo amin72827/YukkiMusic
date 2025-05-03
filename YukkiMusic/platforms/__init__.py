@@ -26,15 +26,7 @@ youtube = YouTube()
 
 
 async def track(url: str) -> "Track":
-    services = [
-        apple,
-        saavn,
-        resso,
-        soundcloud,
-        spotify,
-        telegram,
-        youtube
-        ]
+    services = [apple, saavn, resso, soundcloud, spotify, telegram, youtube]
 
     for service, source_type in services:
         if await service.valid(url):
