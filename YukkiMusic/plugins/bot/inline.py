@@ -9,7 +9,7 @@
 #
 from uuid import uuid4
 
-from telethon import events
+from telethon import events, Button
 from telethon.extensions import markdown
 from telethon.tl.types import (
     DocumentAttributeImageSize,
@@ -48,16 +48,6 @@ async def inline_query_handler(event):
             link = result[x]["link"]
             published = result[x]["publishedTime"]
             description = f"{views} | {duration} Mins | {channel}  | {published}"
-            buttons = ReplyInlineMarkup(
-                [
-                    [
-                        KeyboardButtonUrl(
-                            text="🎥 ᴡᴀᴛᴄʜ ᴏɴ ʏᴏᴜᴛᴜʙᴇ",
-                            url=link,
-                        )
-                    ],
-                ]
-            )
             searched_text = f"""
 ❇️**ᴛɪᴛʟᴇ:** [{title}]({link})
 
@@ -87,7 +77,10 @@ __ʀᴇᴘʟʏ ᴡɪᴛʜ /play ᴏɴ ᴛʜɪs sᴇᴀʀᴄʜᴇᴅ ᴍᴇssᴀ�
                     thumb=photo,
                     description=description,
                     send_message=InputBotInlineMessageMediaAuto(
-                        message=msg, entities=entities, buttons=buttons
+                        message=msg, entities=entities, reply_markup=tbot.build_reply_markup(Button.url(
+                            text="🎥 ᴡᴀᴛᴄʜ ᴏɴ ʏᴏᴜᴛᴜʙᴇ",
+                            url=link,
+            ))
                     ),
                 )
             )
