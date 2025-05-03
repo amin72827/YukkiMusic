@@ -18,6 +18,7 @@ from telethon.tl.types import (
     KeyboardButtonUrl,
     ReplyInlineMarkup,
 )
+from telethon.extensions import markdown
 from youtubesearchpython.__future__ import VideosSearch
 
 from YukkiMusic import tbot
@@ -75,7 +76,8 @@ __ʀᴇᴘʟʏ ᴡɪᴛʜ /play ᴏɴ ᴛʜɪs sᴇᴀʀᴄʜᴇᴅ ᴍᴇssᴀ�
                 mime_type="image/jpeg",
                 attributes=[DocumentAttributeImageSize(w=0, h=0)],
             )
-            msg, entities = tbot._parse_message_text(searched_text, ())
+            msg, entities = markdown.parse(searched_text)
+
             answers.append(
                 InputBotInlineResult(
                     id=str(uuid4()),
