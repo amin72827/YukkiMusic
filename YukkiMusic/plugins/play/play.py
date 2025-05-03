@@ -243,7 +243,7 @@ async def play_commnd(
             else:
                 traceback.print_exc()
                 err = _["general_3"].format(ex_type)
-            return await mystic.edit(err)
+            return await mystic.edit(str(err))
         await mystic.delete()
         return  # await play_logs(message, streamtype=)
     """else:
