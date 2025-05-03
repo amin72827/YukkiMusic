@@ -124,10 +124,7 @@ class Track:
             @asyncify
             def _download():
                 with YoutubeDL(ytdl_opts) as ydl:
-                    try:
-                        info = ydl.extract_info(self.download_url, False)
-                    except Exception as e:
-                        raise e
+                    info = ydl.extract_info(self.download_url, False)
                     self.file_path = os.path.join(
                         "downloads", f"{info['id']}.{info['ext']}"
                     )
