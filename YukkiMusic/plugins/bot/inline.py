@@ -10,6 +10,7 @@
 from uuid import uuid4
 
 from telethon import events
+from telethon.extensions import markdown
 from telethon.tl.types import (
     DocumentAttributeImageSize,
     InputBotInlineMessageMediaAuto,
@@ -18,7 +19,6 @@ from telethon.tl.types import (
     KeyboardButtonUrl,
     ReplyInlineMarkup,
 )
-from telethon.extensions import markdown
 from youtubesearchpython.__future__ import VideosSearch
 
 from YukkiMusic import tbot
