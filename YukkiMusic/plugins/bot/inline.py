@@ -9,15 +9,13 @@
 #
 from uuid import uuid4
 
-from telethon import events, Button
+from telethon import Button, events
 from telethon.extensions import markdown
 from telethon.tl.types import (
     DocumentAttributeImageSize,
     InputBotInlineMessageMediaAuto,
     InputBotInlineResult,
     InputWebDocument,
-    KeyboardButtonUrl,
-    ReplyInlineMarkup,
 )
 from youtubesearchpython.__future__ import VideosSearch
 
@@ -77,10 +75,14 @@ __ʀᴇᴘʟʏ ᴡɪᴛʜ /play ᴏɴ ᴛʜɪs sᴇᴀʀᴄʜᴇᴅ ᴍᴇssᴀ�
                     thumb=photo,
                     description=description,
                     send_message=InputBotInlineMessageMediaAuto(
-                        message=msg, entities=entities, reply_markup=tbot.build_reply_markup(Button.url(
-                            text="🎥 ᴡᴀᴛᴄʜ ᴏɴ ʏᴏᴜᴛᴜʙᴇ",
-                            url=link,
-            ))
+                        message=msg,
+                        entities=entities,
+                        reply_markup=tbot.build_reply_markup(
+                            Button.url(
+                                text="🎥 ᴡᴀᴛᴄʜ ᴏɴ ʏᴏᴜᴛᴜʙᴇ",
+                                url=link,
+                            )
+                        ),
                     ),
                 )
             )
