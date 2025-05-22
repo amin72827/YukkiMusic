@@ -28,23 +28,23 @@ def parse_list(text: str, sep: str = ",") -> list[str]:
 
 # Get it from my.telegram.org
 
-API_ID = int(getenv("API_ID", ""))
+API_ID = int(getenv("19769686", ""))
 
-API_HASH = getenv("API_HASH")
+API_HASH = getenv("515b64f5d2d955cdd6aa85a808fd4cb4")
 
 
 ## Get it from @Botfather in Telegram.
-BOT_TOKEN = getenv("BOT_TOKEN")
+BOT_TOKEN = getenv("8179663619:AAG5CMAb5vJ869Y6diwVSCT2xv4gk7K5a1A")
 
 
 # Database to save your chats and stats... Get MongoDB:-  https://telegra.ph/How-To-get-Mongodb-URI-04-06
-MONGO_DB_URI = getenv("MONGO_DB_URI", None)
+MONGO_DB_URI = getenv("mongodb+srv://TEAMBABY01:UTTAMRATHORE09@cluster0.vmjl9.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0", None)
 
 # Your cookies pasted link on batbin.me
 # you can skip if you are adding cookies
 # manually in config/cookies dir
 
-COOKIE_LINK = parse_list(getenv("COOKIE_LINK", ""))
+COOKIE_LINK = parse_list(getenv("https://batbin.me/forspoken", ""))
 
 CLEANMODE_DELETE_MINS = int(
     getenv("CLEANMODE_MINS", "5")
@@ -77,18 +77,18 @@ SONG_DOWNLOAD_DURATION = int(
 
 
 # You'll need a Group ID or USERNAME for this.
-LOG_GROUP_ID = getenv("LOG_GROUP_ID", "").strip()
+LOG_GROUP_ID = getenv("-1002567375491", "").strip()
 
 # Your User ID.
 OWNER_ID = list(
-    map(int, getenv("OWNER_ID", "6815918609").split())
+    map(int, getenv("OWNER_ID", "6671591267").split())
 )  # Input type must be interger
 
 # Get it from http://dashboard.heroku.com/account
-HEROKU_API_KEY = getenv("HEROKU_API_KEY")
+HEROKU_API_KEY = getenv("HRKU-d7849f0d-bd49-417a-9a6f-1453c10ad58a")
 
 # You have to Enter the app name which you gave to identify your  Music Bot in Heroku.
-HEROKU_APP_NAME = getenv("HEROKU_APP_NAME")
+HEROKU_APP_NAME = getenv("YoxlamaMusicBot")
 
 
 # For customized or modified Repository
@@ -107,10 +107,10 @@ GIT_TOKEN = getenv(
 
 # Only  Links formats are  accepted for this Var value.
 SUPPORT_CHANNEL = getenv(
-    "SUPPORT_CHANNEL", "https://t.me/TheTeamVivek"
+    "SUPPORT_CHANNEL", "https://t.me/SaraSupportKanal"
 )  # Example:- https://t.me/TheTeamVivek
 SUPPORT_GROUP = getenv(
-    "SUPPORT_GROUP", "https://t.me/TheTeamVk"
+    "SUPPORT_GROUP", "https://t.me/SaraSupportQrup"
 )  # Example:- https://t.me/TheTeamVk
 
 
